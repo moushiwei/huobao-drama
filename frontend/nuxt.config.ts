@@ -3,7 +3,13 @@ import { fileURLToPath } from 'node:url'
 export default defineNuxtConfig({
   srcDir: 'app/',
   ssr: false,
+  telemetry: false,
   devtools: { enabled: false },
+  // Windows Chrome 解析 localhost 常走 IPv4，Nuxt 默认只绑 IPv6 会导致 ERR_CONNECTION_REFUSED
+  devServer: {
+    host: '127.0.0.1',
+    port: 3013,
+  },
   experimental: {
     appManifest: false,
   },
@@ -38,9 +44,11 @@ export default defineNuxtConfig({
   },
   vite: {
     server: {
+      host: '127.0.0.1',
+      strictPort: true,
       proxy: {
-        '/api': { target: 'http://localhost:5679', changeOrigin: true },
-        '/static': { target: 'http://localhost:5679', changeOrigin: true },
+        '/api': { target: 'http://127.0.0.1:5679', changeOrigin: true },
+        '/static': { target: 'http://127.0.0.1:5679', changeOrigin: true },
       },
     },
   },

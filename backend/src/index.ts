@@ -34,7 +34,12 @@ const app = new Hono()
 
 // Middleware
 app.use('*', cors({
-  origin: ['http://localhost:3013', 'http://localhost:5679'],
+  origin: [
+    'http://localhost:3013',
+    'http://127.0.0.1:3013',
+    'http://localhost:5679',
+    'http://127.0.0.1:5679',
+  ],
   credentials: true,
 }))
 app.use('*', requestLogger)
